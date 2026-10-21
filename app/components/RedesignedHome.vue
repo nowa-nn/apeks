@@ -22,17 +22,88 @@ const prices: Record<number, string> = { 0: '249 000 ₽', 3: '199 000 ₽', 2: 
     <section class="a-support"><div class="wrap support-inner"><div><span class="label">APEKS в России</span><h2>Оборудование и поддержка<br>из одного источника</h2></div><p>Поможем подобрать конфигурацию, организуем поставку и сервис. Работаем с геодезистами, изыскателями и строительными компаниями по всей России.</p><NuxtLink :to="href('/o-kompanii')" class="text-link">О компании →</NuxtLink></div></section>
   </div>
 
-  <div v-else-if="variant === 'v2'" class="home home-b wrap"><div class="b-intro"><div><span class="label">Интернет-магазин APEKS</span><h1>Геодезическое оборудование</h1><p>Официальные приборы APEKS с консультацией, доставкой и поддержкой в России.</p></div><NuxtLink :to="href('/contacts')" class="text-link">Помощь с подбором →</NuxtLink></div>
-    <section class="b-hero"><div class="b-hero-copy"><small>GNSS / ФЛАГМАНСКАЯ МОДЕЛЬ</small><h2>APEKS AP40 Laser+</h2><p>Лазерный приёмник для измерения точек, к которым сложно подойти с вехой.</p><NuxtLink :to="href(data.products[3]!.route)" class="btn btn-primary">О модели <span>→</span></NuxtLink></div><img :src="brand('ap40.png')" alt="APEKS AP40 Laser+"></section>
-    <nav class="b-categories" aria-label="Категории оборудования"><NuxtLink v-for="cat in data.categories.slice(0,6)" :key="cat.id" :to="categoryHref(cat.id)"><img :src="cat.id === 'gnss' ? brand('ap20.png') : asset(cat.image)" :alt="cat.label"><span>{{ cat.label }}</span><b>→</b></NuxtLink></nav>
-    <section class="section b-products"><div class="section-heading"><div><span class="label">Каталог APEKS</span><h2>Подобрать модель</h2></div><NuxtLink :to="href('/products')" class="text-link">Открыть каталог →</NuxtLink></div><div class="b-product-grid"><NuxtLink v-for="i in featured" :key="i" :to="href(data.products[i]!.route)" class="b-product"><div class="b-product-image"><img :src="modelImage(i)" :alt="data.products[i]!.heading"></div><div class="b-product-info"><small>GNSS-ПРИЁМНИК</small><h3>{{ data.products[i]!.heading }}</h3><p>{{ data.products[i]!.description }}</p><div><strong>{{ prices[i] }}</strong><span>Подробнее →</span></div></div></NuxtLink></div></section>
-    <div class="b-service"><div><b>Нужна комплектация под задачу?</b><p>Расскажите о работах — предложим совместимые приборы и принадлежности.</p></div><NuxtLink :to="href('/contacts')" class="btn btn-outline">Получить консультацию →</NuxtLink></div>
+  <div v-else-if="variant === 'v2'" class="home home-b b-workspace wrap">
+    <div class="b-heading">
+      <div>
+        <span class="label">Интернет-магазин APEKS</span>
+        <h1>Оборудование для геодезии</h1>
+        <p>Подберите прибор по типу работ. Цены и основные возможности моделей — сразу в списке.</p>
+      </div>
+      <NuxtLink :to="href('/contacts')" class="b-heading-contact">Поможем подобрать комплект <span>↗</span></NuxtLink>
+    </div>
+
+    <div class="b-layout">
+      <aside class="b-rail">
+        <div class="b-rail-title">Категории</div>
+        <nav aria-label="Категории каталога">
+          <NuxtLink v-for="cat in data.categories.slice(0,8)" :key="cat.id" :to="categoryHref(cat.id)">
+            <span>{{ cat.label }}</span><span aria-hidden="true">↗</span>
+          </NuxtLink>
+        </nav>
+        <div class="b-rail-help">
+          <strong>Подбор под проект</strong>
+          <p>Подскажем совместимое оборудование для ваших задач и условий работы.</p>
+          <NuxtLink :to="href('/contacts')">Связаться с нами →</NuxtLink>
+        </div>
+      </aside>
+
+      <main class="b-listing">
+        <div class="b-listing-head">
+          <div><span class="label">GNSS-ПРИЁМНИКИ</span><h2>Для полевых измерений</h2></div>
+          <span class="b-listing-count">{{ featured.length }} моделей</span>
+        </div>
+        <NuxtLink v-for="i in featured" :key="i" :to="href(data.products[i]!.route)" class="b-list-row">
+          <div class="b-list-image"><img :src="modelImage(i)" :alt="data.products[i]!.heading"></div>
+          <div class="b-list-copy">
+            <small>APEKS · GNSS-ПРИЁМНИК</small>
+            <h3>{{ data.products[i]!.heading }}</h3>
+            <p>{{ data.products[i]!.description }}</p>
+          </div>
+          <div class="b-list-action"><strong>{{ prices[i] }}</strong><span>О модели ↗</span></div>
+        </NuxtLink>
+        <NuxtLink :to="href('/products')" class="b-all-catalog">Перейти в полный каталог <span>→</span></NuxtLink>
+      </main>
+    </div>
   </div>
 
-  <div v-else class="home home-c"><section class="c-intro"><div class="wrap"><span class="label">APEKS / GNSS-ОБОРУДОВАНИЕ</span><h1>AP80 Pro. Больше возможностей<br>на каждой точке.</h1><p>Фотограмметрия, лазер и инерциальная съёмка в одном геодезическом приёмнике.</p></div></section>
-    <NuxtLink :to="href(data.products[0]!.route)" class="c-banner"><img :src="brand('global-banner-c.png')" alt="Официальный баннер APEKS AP80 Pro"><span class="wrap">Узнать больше об AP80 Pro →</span></NuxtLink>
-    <section class="wrap section c-lines"><div class="section-heading"><div><span class="label">Линейка оборудования</span><h2>Приборы для полевых работ</h2></div><NuxtLink :to="href('/products')" class="text-link">Весь каталог →</NuxtLink></div><div class="line-grid"><NuxtLink :to="categoryHref('gnss')" class="line-card"><div><small>GNSS</small><h3>Спутниковые<br>приёмники</h3><span>Смотреть модели →</span></div><img :src="brand('ap60.png')" alt="GNSS-приёмник APEKS"></NuxtLink><NuxtLink :to="categoryHref('taheometry')" class="line-card"><div><small>ОПТИКА</small><h3>Электронные<br>тахеометры</h3><span>Смотреть модели →</span></div><img :src="asset(data.categories[2]?.image)" alt="Тахеометр APEKS"></NuxtLink><NuxtLink :to="categoryHref('controllers')" class="line-card"><div><small>ПОЛЕВЫЕ ДАННЫЕ</small><h3>Контроллеры<br>и планшеты</h3><span>Смотреть модели →</span></div><img :src="brand('ts8i.png')" alt="Полевой планшет APEKS"></NuxtLink></div></section>
-    <section class="c-feature"><div class="wrap c-feature-inner"><img :src="brand('global-banner-b.jpg')" alt="Фирменная графика приёмника APEKS AP40 Laser+"><div><span class="label">APEKS AP40 Laser+</span><h2>Измеряйте там, где не поставить веху</h2><p>Лазер и камеры помогают получать координаты труднодоступных точек. В карточке модели — описание и варианты применения.</p><NuxtLink :to="href(data.products[3]!.route)" class="btn btn-primary">Подробнее о приборе →</NuxtLink></div></div></section>
-    <section class="wrap section c-products"><div class="section-heading"><div><span class="label">Выбор APEKS</span><h2>Ключевые модели</h2></div><NuxtLink :to="href('/products')" class="text-link">Все модели →</NuxtLink></div><div class="c-product-grid"><NuxtLink v-for="i in featured.slice(0,3)" :key="i" :to="href(data.products[i]!.route)" class="c-product"><img :src="modelImage(i)" :alt="data.products[i]!.heading"><div><h3>{{ data.products[i]!.heading }}</h3><span>Подробнее →</span></div></NuxtLink></div></section>
+  <div v-else class="home home-c c-showcase">
+    <section class="c-hero">
+      <div class="c-hero-copy">
+        <div class="c-hero-copy-inner">
+          <span class="c-eyebrow">APEKS · ПРИБОРЫ ДЛЯ ГЕОДЕЗИИ</span>
+          <h1>AP80 Pro</h1>
+          <p class="c-hero-lead">Съёмка сложных и труднодоступных точек.</p>
+          <p class="c-hero-desc">GNSS-приёмник с фотограмметрией, лазером и инерциальными измерениями для сложных полевых условий.</p>
+          <NuxtLink :to="href(data.products[0]!.route)" class="c-hero-link">Открыть AP80 Pro <span>↗</span></NuxtLink>
+        </div>
+        <div class="c-hero-bottom"><span>GNSS / ФОТОГРАММЕТРИЯ / ЛАЗЕР</span><span>APEKS</span></div>
+      </div>
+      <div class="c-hero-product"><img :src="brand('ap80-large.jpg')" alt="GNSS-приёмник APEKS AP80 Pro"></div>
+    </section>
+
+    <section class="wrap c-usecases">
+      <div class="c-section-title"><span class="label">В ПОЛЕ</span><h2>Один прибор. Несколько способов измерения.</h2></div>
+      <div class="c-usecase-grid">
+        <div><h3>Снимайте без доступа к точке</h3><p>Лазер помогает получить координаты там, где веху установить невозможно.</p></div>
+        <div><h3>Работайте в сложной застройке</h3><p>Камеры и фотограмметрия расширяют возможности съёмки рядом со зданиями и препятствиями.</p></div>
+        <div><h3>Не выравнивайте веху каждый раз</h3><p>IMU компенсирует наклон в полевой работе — до 120° для AP80 Pro.</p></div>
+      </div>
+    </section>
+
+    <section class="c-second-product">
+      <div class="wrap c-second-inner">
+        <div class="c-second-visual"><img :src="brand('ap40.png')" alt="GNSS-приёмник APEKS AP40 Laser+"></div>
+        <div class="c-second-copy"><span class="label">ДРУГАЯ ЗАДАЧА — ДРУГАЯ МОДЕЛЬ</span><h2>AP40 Laser+</h2><p>Приёмник с лазером для удалённых точек. Подходит для фасадов, кровель и участков, где работа с вехой затруднена.</p><NuxtLink :to="href(data.products[3]!.route)" class="c-text-link">Изучить модель <span>→</span></NuxtLink></div>
+      </div>
+    </section>
+
+    <section class="wrap c-range">
+      <div class="c-range-head"><div><span class="label">ЛИНЕЙКА APEKS</span><h2>Другие модели</h2></div><NuxtLink :to="href('/products')">Все модели →</NuxtLink></div>
+      <div class="c-range-list">
+        <NuxtLink :to="href(data.products[2]!.route)"><strong>AP20 AR</strong><span>Разбивка с дополненной реальностью</span><b>↗</b></NuxtLink>
+        <NuxtLink :to="href(data.products[5]!.route)"><strong>AP60 Vision</strong><span>Визуальная съёмка в сложных полевых условиях</span><b>↗</b></NuxtLink>
+        <NuxtLink :to="href(data.products[6]!.route)"><strong>AP10</strong><span>Базовые спутниковые измерения</span><b>↗</b></NuxtLink>
+      </div>
+    </section>
   </div>
 </template>
