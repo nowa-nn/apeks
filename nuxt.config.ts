@@ -10,7 +10,7 @@ for (const variant of ['v1', 'v2', 'v3']) {
 
 export default defineNuxtConfig({
   compatibilityDate: '2026-10-21',
-  css: ['~/assets/main.css'],
+  css: ['~/assets/main.css', '~/assets/redesign.css'],
   app: {
     baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
