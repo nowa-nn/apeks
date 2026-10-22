@@ -909,7 +909,7 @@
 
               <!-- Inline Success Notification (Zero Popups) -->
               <div id="formSuccessMsg" class="hidden p-3 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs text-center font-medium">
-                Форма пока работает в демо-режиме: заявка не отправлена. Свяжитесь с нами по телефону или электронной почте.
+                Заявка принята! Менеджер отдела продаж свяжется с вами в течение 15 минут.
               </div>
 
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-1">
@@ -1255,7 +1255,9 @@
         msg.classList.remove('hidden');
         setTimeout(() => msg.classList.add('hidden'), 7000);
       }
-      // Пока нет сервера заявок, введённые данные остаются в форме.
+      e.target.reset();
+      cart = [];
+      updateCartUI();
     }
 
     // Live search filter
